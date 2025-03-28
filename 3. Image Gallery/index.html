@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery Lightbox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(52, 52, 52);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .gallery img {
+            width: 150px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox img {
+            max-width: 80%;
+            max-height: 80%;
+        }
+        .lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <img src="image1.jpg" alt="Thumbnail" class="thumbnail">
+        <img src="image2.jpg" alt="Thumbnail" class="thumbnail">
+        <img src="image3.jpg" alt="Thumbnail" class="thumbnail">
+        <img src="image4.jpg" alt="Thumbnail" class="thumbnail">
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close" id="close">&times;</span>
+        <img id="lightbox-img" src="" alt="Expanded View">
+    </div>
+
+    <script>
+        document.querySelectorAll('.thumbnail').forEach(image => {
+            image.addEventListener('click', function() {
+                document.getElementById('lightbox-img').src = this.src;
+                document.getElementById('lightbox').classList.add('show');
+            });
+        });
+
+        document.getElementById('close').addEventListener('click', function() {
+            document.getElementById('lightbox').classList.remove('show');
+        });
+    </script>
+</body>
+</html>
