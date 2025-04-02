@@ -1,0 +1,31 @@
+body {
+    background-color: #2f2f2f;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #3e3e3e;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+ul {
+    padding: 0;
+    list-style: none;
+}
+li {
+    padding: 10px;
+    background-color: #444;
+    margin: 10px 0;
+    border-radius: 5px;
+    cursor: move;
+    color: #fff;
+}
+li.dragging {
+    opacity: 0.5;
+}
+li.over {
+    border: 2px dashed #6200ea;
+}
