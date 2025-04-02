@@ -1,4 +1,4 @@
-const apiKey = 'API KEY'; // Replace with your OpenWeatherMap API Key
+const apiKey = 'xxx'; // DUMMY geocode apikey
 const getWeatherButton = document.getElementById('get-weather');
 const cityInput = document.getElementById('city');
 const temperatureElement = document.getElementById('temperature');
@@ -17,7 +17,7 @@ getWeatherButton.addEventListener('click', () => {
 });
 
 function fetchGeoLocation(city) {
-    const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
+    const geoUrl = `https://geocode.maps.co/search?q=${city}&api_key=${apiKey}`;
     
     fetch(geoUrl)
         .then(response => {
@@ -41,7 +41,7 @@ function fetchGeoLocation(city) {
 }
 
 function fetchWeatherData(lat, lon) {
-    const weatherUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m`;
 
     fetch(weatherUrl)
         .then(response => {
@@ -60,13 +60,12 @@ function fetchWeatherData(lat, lon) {
 }
 
 function displayWeatherData(data) {
-    const temperature = data.current.temp;
-    const humidity = data.current.humidity;
-    const description = data.current.weather[0].description;
+    const temperature = data.current.temperature_2m;
+    const humidity = data.current.relative_humidity_2m;
+
 
     temperatureElement.textContent = `Temperature: ${temperature}°C`;
     humidityElement.textContent = `Humidity: ${humidity}%`;
-    descriptionElement.textContent = `Condition: ${description.charAt(0).toUpperCase() + description.slice(1)}`;
 
     errorMessageElement.textContent = ''; 
 }
@@ -74,5 +73,4 @@ function displayWeatherData(data) {
 function clearWeatherData() {
     temperatureElement.textContent = '';
     humidityElement.textContent = '';
-    descriptionElement.textContent = '';
 }
