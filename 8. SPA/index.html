@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA with Hash Routing</title>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#home" id="home-link">Home</a>
+            <a href="#about" id="about-link">About</a>
+            <a href="#services" id="services-link">Services</a>
+            <a href="#contact" id="contact-link">Contact</a>
+        </nav>
+    </header>
+
+    <main id="app">
+        <section id="home" class="view">
+            <h1>Welcome to Our SPA</h1>
+            <div class="card">
+                <h2>Discover The Power of SPAs</h2>
+                <p>This single-page application demonstrates hash-based routing for a seamless user experience.</p>
+                <button onclick="location.hash = '#about'">Learn More</button>
+            </div>
+            <div class="card">
+                <h2>No Page Reloads</h2>
+                <p>Notice how the page content changes without refreshing the entire page. </p>
+            </div>
+        </section>
+
+        <section id="about" class="view">
+            <h1>About Us</h1>
+            <div class="card">
+                <h2>This App</h2>
+                <p>We specialize in creating modern web applications</p>
+            </div>
+            <div class="card">
+                <h2>Working</h2>
+                <p>Whenever the hash of the page changes, the page automatically hides other sections and shows the appropriate one</p>
+                <button onclick="location.hash = '#services'">Our Services</button>
+            </div>
+        </section>
+
+        <section id="services" class="view">
+            <h1>Our Services</h1>
+            <div class="card">
+                <h2>Beautiful SPA</h2>
+                <p>We build fast, responsive single-page applications that *may or may not* provide a seamless user experience.</p>
+            </div>
+            <div class="card">
+                <h2>Custom Hosting Solutions</h2>
+                <p>We also provide the option to have your app hosted with us.</p>
+                <button onclick="location.hash = '#contact'">Contact Us</button>
+            </div>
+        </section>
+
+        <section id="contact" class="view">
+            <h1>Contact Us</h1>
+            <div class="card">
+                <h2>Get In Touch</h2>
+                <p>Have questions about single-page applications or hash-based routing? We're here to help!</p>
+                <form id="contact-form">
+                    <div style="margin-bottom: 1rem;">
+                        <input type="text" id="name" placeholder="Your Name" style="padding: 0.5rem; width: 100%; background: rgba(30, 30, 50, 0.8); border: 1px solid var(--primary); color: var(--text-primary);">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <input type="email" id="email" placeholder="Your Email" style="padding: 0.5rem; width: 100%; background: rgba(30, 30, 50, 0.8); border: 1px solid var(--primary); color: var(--text-primary);">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <textarea id="message" placeholder="Your Message" rows="4" style="padding: 0.5rem; width: 100%; background: rgba(30, 30, 50, 0.8); border: 1px solid var(--primary); color: var(--text-primary);"></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>SPA with Hash-Based Routing - Built with 💜</p>
+    </footer>
+
+    <script src="index.js"/>
+</body>
+</html>
