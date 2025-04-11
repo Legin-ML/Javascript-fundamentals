@@ -177,6 +177,14 @@ export class UIManager {
                 filterBtn.click();
             }
         });
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value;
+            const category = categoryFilter.value;
+            const filteredProducts = this.productService.filterProducts(searchTerm, category);
+            this.renderProducts(filteredProducts);
+
+        });
         
         categoryFilter.addEventListener('change', () => {
             filterBtn.click();

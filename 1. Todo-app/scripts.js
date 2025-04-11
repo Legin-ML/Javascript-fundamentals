@@ -7,11 +7,16 @@ function addTask() {
     if (taskText === "") return; // Empty case
     
     let li = document.createElement("li");
-    li.innerHTML = `<span class="task-text">${taskText}</span>
+    li.innerHTML = `<span class="task-text" id="show-text">${taskText}</span>
                     <div class="task-actions">
                         <button class="finish-btn" onclick="finishTask(this)">Finish</button>
                         <button class="remove-btn" onclick="removeTask(this)">Remove</button>
                     </div>`;
+
+    let element = document.getElementById("show-test");
+    element.addEventListener("click", () => {
+        element.classList.add("completed");
+    })
     
     document.getElementById("task-list").appendChild(li);
     saveTasks();

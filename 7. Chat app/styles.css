@@ -13,6 +13,8 @@ body {
 }
 
 .chat-box {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     padding: 20px;
     overflow-y: auto;
@@ -50,12 +52,14 @@ button:hover {
 }
 
 .message {
-    max-width: 70%;
+    width: fit-content;
+    max-width: 90%; /* Increased from 70% to allow more space */
     margin-bottom: 15px;
     padding: 10px;
     border-radius: 20px;
     word-wrap: break-word;
     font-size: 14px;
+    position: relative;
 }
 
 .user-message {
@@ -71,8 +75,17 @@ button:hover {
 }
 
 .timestamp {
-    font-size: 0.8em;
+    font-size: 0.75em;
     color: #e3e3e3;
+    margin-top: 10px;
+    padding-right: 5px;
+}
+
+.timestamp-left {
+    text-align: left;
+}
+
+.timestamp-right {
     text-align: right;
 }
 
@@ -80,5 +93,6 @@ button:hover {
     margin-top: 10px;
     font-style: italic;
     color: #888;
-    text-align: center;
+    text-align: left; 
+    padding-left: 10px;
 }

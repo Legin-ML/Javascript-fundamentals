@@ -9,6 +9,7 @@ const errorMessageElement = document.getElementById('error-message');
 getWeatherButton.addEventListener('click', () => {
     const city = cityInput.value.trim();
     if (!city) {
+        clearWeatherData();
         errorMessageElement.textContent = 'Please enter a city name.';
         return;
     }
@@ -28,7 +29,9 @@ function fetchGeoLocation(city) {
         })
         .then(data => {
             if (data.length === 0) {
+                clearWeatherData();
                 throw new Error('City not found');
+
             }
             const lat = data[0].lat;
             const lon = data[0].lon;

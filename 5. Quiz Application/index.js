@@ -42,6 +42,8 @@ fetch('quiz-data.json')
 document.getElementById("start-btn").addEventListener("click", startQuiz);
 document.getElementById("next-btn").addEventListener("click", nextQuestion);
 document.getElementById("reset-btn").addEventListener("click", resetQuiz);
+document.getElementById("prev-btn").addEventListener("click", previousQuestion);
+
 
 function startQuiz() {
     document.getElementById("start-screen").style.display = 'none';
@@ -60,10 +62,15 @@ function loadQuestion() {
         currentQuestion.options.forEach(option => {
             const li = document.createElement("li");
             li.textContent = option;
+            if (userAnswers[currentQuestionIndex] === option) {
+                li.classList.add('selected');
+                document.getElementById("next-btn").style.display = 'block';
+            }
             li.addEventListener("click", selectAnswer);
             optionsList.appendChild(li);
         });
         document.getElementById("next-btn").style.display = 'none';
+        document.getElementById("prev-btn").style.display = currentQuestionIndex > 0 ? 'block' : 'none';
     } else {
         showResult();
     }
@@ -82,7 +89,8 @@ function selectAnswer(event) {
 function nextQuestion() {
     const selectedOption = document.querySelector('.selected');
     const selectedAnswer = selectedOption ? selectedOption.textContent : null;
-    userAnswers.push(selectedAnswer);
+    //userAnswers.push(selectedAnswer);
+    userAnswers[currentQuestionIndex] = selectedAnswer;
     
     const correctAnswer = quizData[currentQuestionIndex].answer;
     if (selectedAnswer === correctAnswer) {
@@ -91,6 +99,13 @@ function nextQuestion() {
 
     currentQuestionIndex++;
     loadQuestion();
+}
+
+function previousQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion();
+    }
 }
 
 function showResult() {

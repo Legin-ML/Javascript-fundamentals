@@ -4,7 +4,7 @@ const sendBtn = document.getElementById('sendBtn');
 
 function createMessage(content, isUserMessage = true) {
     const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message', isUserMessage ? 'user-message' : 'bot-message');
+    messageDiv.classList.add('message', isUserMessage ? 'user-message' : 'bot-message', isUserMessage ? 'timestamp-left' : 'timestamp-right');
     const timestamp = new Date().toLocaleTimeString();
     messageDiv.innerHTML = `
         <div class="message-content">${content}</div>

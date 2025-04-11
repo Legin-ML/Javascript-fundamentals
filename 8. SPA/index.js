@@ -32,7 +32,12 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
     
-    alert(`Thanks ${name}! Your message has been received. We'll contact you at ${email} soon.`);
+    if (!name.trim() || !email.trim() || !message.trim()) {
+        alert('Please fill out all fields before submitting.');
+        return;
+    }
+
+    alert(`Thank you, ${name.trim()}! We'll get back to you soon.`);
     
     this.reset();
 });

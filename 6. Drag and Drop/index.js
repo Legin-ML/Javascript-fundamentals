@@ -1,75 +1,47 @@
-let quizData = [];
-let currentQuestionIndex = 0;
-let score = 0;
+document.addEventListener('DOMContentLoaded', () => {
+    const list = document.getElementById('sortable-list');
+    let draggedItem = null;
 
-fetch('quiz-data.json')
-    .then(response => response.json())
-    .then(data => {
-        quizData = data;
-    })
-    .catch(error => console.error("Error loading quiz data:", error));
-
-document.getElementById("start-btn").addEventListener("click", startQuiz);
-document.getElementById("next-btn").addEventListener("click", nextQuestion);
-document.getElementById("reset-btn").addEventListener("click", resetQuiz);
-
-function startQuiz() {
-    document.getElementById("start-screen").style.display = 'none';
-    document.getElementById("quiz-container").style.display = 'block';
-    loadQuestion();
-}
-
-function loadQuestion() {
-    if (currentQuestionIndex < quizData.length) {
-        const currentQuestion = quizData[currentQuestionIndex];
-        document.getElementById("question").textContent = currentQuestion.question;
-        const optionsList = document.getElementById("options");
-        optionsList.innerHTML = '';
-        currentQuestion.options.forEach(option => {
-            const li = document.createElement("li");
-            li.textContent = option;
-            li.addEventListener("click", selectAnswer);
-            optionsList.appendChild(li);
+    const items = list.querySelectorAll('li');
+    items.forEach(item => {
+        item.addEventListener('dragstart', (e) => {
+            draggedItem = item;
+            item.classList.add('dragging');
         });
-        document.getElementById("next-btn").style.display = 'none';
-    } else {
-        showResult();
-    }
-}
 
-function selectAnswer(event) {
-    const options = document.querySelectorAll("li");
-    options.forEach(option => option.classList.remove('selected'));
+        item.addEventListener('dragend', () => {
+            draggedItem.classList.remove('dragging');
+            draggedItem = null;
+        });
 
-    const selectedOption = event.target;
-    selectedOption.classList.add('selected');
+        item.addEventListener('dragover', (e) => {
+            e.preventDefault(); // Required to allow dropping
+            const target = e.target;
+            if (target && target !== draggedItem && target.nodeName === 'LI') {
+                target.classList.add('over');
+            }
+        });
 
-    document.getElementById("next-btn").style.display = 'block';
-}
+        item.addEventListener('dragleave', () => {
+            item.classList.remove('over');
+        });
 
-function nextQuestion() {
-    const selectedOption = document.querySelector('.selected');
-    if (selectedOption) {
-        const correctAnswer = quizData[currentQuestionIndex].answer;
-        if (selectedOption.textContent === correctAnswer) {
-            score++;
-        }
-    }
-    currentQuestionIndex++;
-    loadQuestion();
-}
+        item.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (draggedItem && e.target.nodeName === 'LI') {
+                const itemsArray = Array.from(list.querySelectorAll('li'));
+                const draggedIndex = itemsArray.indexOf(draggedItem);
+                const targetIndex = itemsArray.indexOf(e.target);
 
-function showResult() {
-    document.getElementById("quiz-container").innerHTML = `
-        <h2>Your score is: ${score}/${quizData.length}</h2>
-        <button id="reset-btn">Reset Quiz</button>
-    `;
-    document.getElementById("reset-btn").style.display = 'block';
-}
-
-function resetQuiz() {
-    currentQuestionIndex = 0;
-    score = 0;
-    document.getElementById("quiz-container").style.display = 'none';
-    document.getElementById("start-screen").style.display = 'block';
-}
+                if (draggedIndex !== targetIndex) {
+                    if (draggedIndex < targetIndex) {
+                        list.insertBefore(draggedItem, e.target.nextSibling);
+                    } else {
+                        list.insertBefore(draggedItem, e.target);
+                    }
+                }
+            }
+            items.forEach(item => item.classList.remove('over'));
+        });
+    });
+});
